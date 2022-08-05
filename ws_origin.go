@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	cmap "github.com/orcaman/concurrent-map/v2"
 	"golang.org/x/net/websocket"
 	"time"
@@ -37,6 +38,8 @@ func connectWsOrigin(ctx context.Context, topic string) {
 				}
 			}
 			wsDial.Close()
+		} else {
+			fmt.Println(err.Error())
 		}
 		select {
 		case <-ctx.Done():
