@@ -36,8 +36,8 @@ func connectWsOrigin(ctx context.Context, topic string) {
 					go sendMessage(topic, string(data.Msg))
 				}
 			}
+			wsDial.Close()
 		}
-		wsDial.Close()
 		select {
 		case <-ctx.Done():
 			return
