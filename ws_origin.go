@@ -29,8 +29,10 @@ func connectWsOrigin(ctx context.Context, topic string) {
 				var data = AnyMessages{}
 				err := AnyMessage.Receive(wsDial, &data)
 				if err != nil {
+					fmt.Println(err.Error())
 					break
 				}
+				fmt.Println("topic:" + topic + ",收到消息")
 				if data.PayloadType == websocket.BinaryFrame {
 					go sendByte(topic, data.Msg)
 				} else if data.PayloadType == websocket.TextFrame {
@@ -44,7 +46,7 @@ func connectWsOrigin(ctx context.Context, topic string) {
 		select {
 		case <-ctx.Done():
 			return
-		case <-time.After(time.Second * 10):
+		case <-time.After(time.Second * 3):
 		}
 	}
 }
