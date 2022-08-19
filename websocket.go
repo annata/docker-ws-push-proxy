@@ -37,10 +37,12 @@ func sendAllByte(mm cmap.ConcurrentMap[*websocket.Conn], value []byte) {
 		go func() {
 			for t := range tuple {
 				ws := t.Val
-				err := websocket.Message.Send(ws, value)
-				if err != nil {
-					ws.Close()
-				}
+				go func() {
+					err := websocket.Message.Send(ws, value)
+					if err != nil {
+						ws.Close()
+					}
+				}()
 			}
 		}()
 	}
@@ -53,10 +55,12 @@ func sendAllMessage(mm cmap.ConcurrentMap[*websocket.Conn], value string) {
 		go func() {
 			for t := range tuple {
 				ws := t.Val
-				err := websocket.Message.Send(ws, value)
-				if err != nil {
-					ws.Close()
-				}
+				go func() {
+					err := websocket.Message.Send(ws, value)
+					if err != nil {
+						ws.Close()
+					}
+				}()
 			}
 		}()
 	}
