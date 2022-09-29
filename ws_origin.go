@@ -32,7 +32,6 @@ func connectWsOrigin(ctx context.Context, topic string) {
 					fmt.Println(err.Error())
 					break
 				}
-				//fmt.Println("topic:" + topic + ",收到消息")
 				if data.PayloadType == websocket.BinaryFrame {
 					go sendByte(topic, data.Msg)
 				} else if data.PayloadType == websocket.TextFrame {

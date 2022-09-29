@@ -32,7 +32,7 @@ func sendByte(key string, value []byte) {
 
 func sendAllByte(mm cmap.ConcurrentMap[*websocket.Conn], value []byte) {
 	tuple := mm.IterBuffered()
-	number := (cap(tuple) / 128) + 1
+	number := (cap(tuple) / 256) + 1
 	for i := 0; i < number; i++ {
 		go func() {
 			for t := range tuple {
@@ -50,7 +50,7 @@ func sendAllByte(mm cmap.ConcurrentMap[*websocket.Conn], value []byte) {
 
 func sendAllMessage(mm cmap.ConcurrentMap[*websocket.Conn], value string) {
 	tuple := mm.IterBuffered()
-	number := (cap(tuple) / 128) + 1
+	number := (cap(tuple) / 256) + 1
 	for i := 0; i < number; i++ {
 		go func() {
 			for t := range tuple {
