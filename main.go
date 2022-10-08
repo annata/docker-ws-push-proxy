@@ -32,6 +32,7 @@ func main() {
 func stopHttp(server *http.Server) {
 	<-ctx.Done()
 	server.Shutdown(context.TODO())
+	os.Exit(0)
 }
 
 func parse() bool {

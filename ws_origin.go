@@ -29,7 +29,6 @@ func connectWsOrigin(ctx context.Context, topic string) {
 				var data = AnyMessages{}
 				err := AnyMessage.Receive(wsDial, &data)
 				if err != nil {
-					fmt.Println(err.Error())
 					break
 				}
 				if data.PayloadType == websocket.BinaryFrame {
@@ -59,7 +58,7 @@ func add(topic string) {
 func del(topic string) {
 	cancel, ok := wsOrigin.Get(topic)
 	if ok {
-		cancel()
 		wsOrigin.Remove(topic)
+		go cancel()
 	}
 }
